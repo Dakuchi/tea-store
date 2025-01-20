@@ -21,7 +21,7 @@ Check out our [Getting Started Guide](GET_STARTED.md) for information on how to 
 3. [Building and Customizing the TeaStore](GET_STARTED.md#3-building-and-customizing-the-teastore)
 
 ## Cite Us
-
+Test
 The TeaStore was first published in [Proceedings of the 26th IEEE International Symposium on the Modelling, Analysis, and Simulation of Computer and Telecommunication Systems (MASCOTS2018)](https://ieeexplore.ieee.org/document/8526888). If you use the TeaStore please cite the following publication:
 
 ```bibtex
