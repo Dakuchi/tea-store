@@ -4,7 +4,7 @@ pipeline {
         VERSION = "" // Placeholder for the version derived from the milestone title
         DOCKER_REGISTRY = 'Dakuchi'
         DOCKER_CREDENTIALS_ID = 'docker hub credentials' // Jenkins DockerHub credentials ID
-        GITHUB_TOKEN = credentials('github-token')   // Jenkins GitHub token ID
+        //GITHUB_TOKEN = credentials('github-token')   // Jenkins GitHub token ID
     }
     options {
         skipStagesAfterUnstable()
