@@ -4,6 +4,7 @@ pipeline {
         VERSION = "" // Placeholder for the version derived from the milestone title
         DOCKER_REGISTRY = 'Dakuchi'
         DOCKER_CREDENTIALS_ID = 'docker hub credentials' // Jenkins DockerHub credentials ID
+        PATH = "$PATH:/usr/local/codeql"
         //GITHUB_TOKEN = credentials('github-token')   // Jenkins GitHub token ID
     }
     options {
