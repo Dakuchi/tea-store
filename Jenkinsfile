@@ -4,7 +4,7 @@ pipeline {
         VERSION = "" // Placeholder for the version derived from the milestone title
         DOCKER_REGISTRY = 'Dakuchi'
         DOCKER_CREDENTIALS_ID = 'docker hub credentials' // Jenkins DockerHub credentials ID
-        PATH = "$PATH:/usr/local/codeql"
+        SONARQUBE_ENV = 'SonarQube'
         //GITHUB_TOKEN = credentials('github-token')   // Jenkins GitHub token ID
     }
     options {
@@ -17,17 +17,12 @@ pipeline {
                 git branch: 'development', url: 'https://github.com/Dakuchi/tea-store.git'
             }
         }
-        stage('Code Analysis (CodeQL)') {
+        stage('Code Analysis with SonarQube') {
             steps {
-                echo 'Running CodeQL analysis...'
-                sh '''
-                    codeql database create codeql-db --language=java
-                    codeql database analyze codeql-db --format=sarif-latest --output=codeql-analysis.sarif
-                '''
-            }
-            post {
-                always {
-                    archiveArtifacts artifacts: 'codeql-analysis.sarif', allowEmptyArchive: true
+                script {
+                    withSonarQubeEnv("${SONARQUBE_ENV}") {
+                        sh 'mvn sonar:sonar -Dsonar.projectKey=teastore -Dsonar.host.url=http://<SONARQUBE_SERVER_URL>'
+                    }
                 }
             }
         }
