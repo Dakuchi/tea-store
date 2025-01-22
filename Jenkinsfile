@@ -2,13 +2,13 @@ pipeline {
     agent any
     tools {
         maven 'maven'
-        sonarScanner 'SonarQube'
+        sonarScanner 'Sonar'
     }
     environment {
         VERSION = "" // Placeholder for the version derived from the milestone title
         DOCKER_REGISTRY = 'Dakuchi'
         DOCKER_CREDENTIALS_ID = 'docker hub credentials' // Jenkins DockerHub credentials ID
-        SONARQUBE_ENV = 'SonarQube'
+        //SONARQUBE_ENV = 'SonarQube'
         //GITHUB_TOKEN = credentials('github-token')   // Jenkins GitHub token ID
     }
     options {
@@ -29,11 +29,11 @@ pipeline {
         }
         stage('Code Analysis') {
             environment {
-                scannerHome = tool 'SonarQube'
+                scannerHome = tool 'Sonar'
             }
             steps {
                 script {
-                    withSonarQubeEnv('SonarQube') {  // Make sure this matches your SonarQube configuration name in Jenkins
+                    withSonarQubeEnv('Sonar') {  // Make sure this matches your SonarQube configuration name in Jenkins
                         sh '''
                             ${scannerHome}/bin/sonar-scanner \
                             -Dsonar.projectKey=teastore \
