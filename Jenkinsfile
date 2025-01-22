@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    tools {
+        maven 'maven'
+    }
     environment {
         VERSION = "" // Placeholder for the version derived from the milestone title
         DOCKER_REGISTRY = 'Dakuchi'
