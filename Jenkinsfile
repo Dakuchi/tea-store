@@ -17,16 +17,6 @@ pipeline {
                 git branch: 'development', url: 'https://github.com/Dakuchi/tea-store.git'
             }
         }
-        stage('Validate environment') {
-            steps{
-                script {
-                    echo "SonarQube Environment: ${SONARQUBE_ENV}"
-                }
-                script {
-                    echo "SonarQube URL: ${SONARQUBE_SERVER_URL}"
-                }
-            }
-        }
         stage('Code Analysis with SonarQube') {
             steps {
                 script {
