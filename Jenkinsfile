@@ -2,7 +2,7 @@ pipeline {
     agent any
     tools {
         maven 'maven'
-        sonarScanner 'Sonar'
+        //sonarScanner 'Sonar'
     }
     environment {
         VERSION = "" // Placeholder for the version derived from the milestone title
