@@ -2,6 +2,7 @@ pipeline {
     agent any
     tools {
         maven 'maven'
+        sonarScanner 'SonarQube'
     }
     environment {
         VERSION = "" // Placeholder for the version derived from the milestone title
@@ -26,11 +27,20 @@ pipeline {
                 sh 'mvn clean install'
             }
         }
-        stage('Code Analysis with SonarQube') {
+        stage('Code Analysis') {
+            environment {
+                scannerHome = tool 'SonarQube'
+            }
             steps {
                 script {
-                    withSonarQubeEnv("${SONARQUBE_ENV}") {
-                        sh 'mvn -X sonar:sonar -Dsonar.projectKey=teastore -Dsonar.host.url=http://<SONARQUBE_SERVER_URL>'
+                    withSonarQubeEnv('SonarQube') {  // Make sure this matches your SonarQube configuration name in Jenkins
+                        sh '''
+                            ${scannerHome}/bin/sonar-scanner \
+                            -Dsonar.projectKey=teastore \
+                            -Dsonar.projectName=TeaShop \
+                            -Dsonar.projectVersion=1.0 \
+                            -Dsonar.sources=src
+                        '''
                     }
                 }
             }
