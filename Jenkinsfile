@@ -1,3 +1,4 @@
+def mvn = tool 'Default Maven'
 pipeline {
     agent any
     environment {
@@ -19,8 +20,7 @@ pipeline {
         }
         stage('SonarQube Analysis') {
             steps{
-                def mvn = tool 'Default Maven';
-                withSonarQubeEnv() {
+                withSonarQubeEnv("${SONARQUBE_ENV}") {
                     sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=teastore -Dsonar.projectName='teastore'"
                 }
             }
