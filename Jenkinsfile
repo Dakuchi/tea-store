@@ -34,13 +34,24 @@ pipeline {
             steps {
                 script {
                     withSonarQubeEnv('Sonar') {  // Make sure this matches your SonarQube configuration name in Jenkins
-                        sh '''
-                            ${scannerHome}/bin/sonar-scanner \
-                            -Dsonar.projectKey=teastore \
-                            -Dsonar.projectName=TeaShop \
-                            -Dsonar.projectVersion=1.0 \
-                            -Dsonar.sources=src
-                        '''
+                        def services = [
+                            'tools.descartes.teastore.auth',
+                            'tools.descartes.teastore.image',
+                            'tools.descartes.teastore.persistence',
+                            'tools.descartes.teastore.recommender',
+                            'tools.descartes.teastore.registry',
+                            'tools.descartes.teastore.webuils'
+                        ]
+                        // Loop through each service and run SonarQube analysis
+                        services.each { service ->
+                            sh """
+                                ${scannerHome}/bin/sonar-scanner \
+                                -Dsonar.projectKey=${service} \
+                                -Dsonar.projectName=${service} \
+                                -Dsonar.projectVersion=1.0 \
+                                -Dsonar.sources=services/${service}/src
+                            """
+                        }
                     }
                 }
             }
