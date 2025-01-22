@@ -20,8 +20,12 @@ pipeline {
         stage('Code Analysis with SonarQube') {
             steps {
                 script {
+                    echo "SonarQube Environment: ${SONARQUBE_ENV}"
+                    echo "SonarQube URL: ${SONARQUBE_SERVER_URL}"
+                }
+                script {
                     withSonarQubeEnv("${SONARQUBE_ENV}") {
-                        sh 'mvn sonar:sonar -Dsonar.projectKey=teastore -Dsonar.host.url=http://<SONARQUBE_SERVER_URL>'
+                        sh 'mvn -X sonar:sonar -Dsonar.projectKey=teastore -Dsonar.host.url=http://<SONARQUBE_SERVER_URL>'
                     }
                 }
             }
