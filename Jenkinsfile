@@ -1,4 +1,3 @@
-def mvn = tool 'Default Maven'
 pipeline {
     agent any
     environment {
