@@ -17,12 +17,18 @@ pipeline {
                 git branch: 'development', url: 'https://github.com/Dakuchi/tea-store.git'
             }
         }
-        stage('Code Analysis with SonarQube') {
-            steps {
+        stage('Validate environment') {
+            steps{
                 script {
                     echo "SonarQube Environment: ${SONARQUBE_ENV}"
+                }
+                script {
                     echo "SonarQube URL: ${SONARQUBE_SERVER_URL}"
                 }
+            }
+        }
+        stage('Code Analysis with SonarQube') {
+            steps {
                 script {
                     withSonarQubeEnv("${SONARQUBE_ENV}") {
                         sh 'mvn -X sonar:sonar -Dsonar.projectKey=teastore -Dsonar.host.url=http://<SONARQUBE_SERVER_URL>'
