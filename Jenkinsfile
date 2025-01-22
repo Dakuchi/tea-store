@@ -18,6 +18,12 @@ pipeline {
                 git branch: 'development', url: 'https://github.com/Dakuchi/tea-store.git'
             }
         }
+        stage('Build and Unit Tests') {
+            steps {
+                echo 'Building and running unit tests...'
+                sh 'mvn clean install'
+            }
+        }
         stage('Code Analysis with SonarQube') {
             steps {
                 script {
@@ -25,12 +31,6 @@ pipeline {
                         sh 'mvn -X sonar:sonar -Dsonar.projectKey=teastore -Dsonar.host.url=http://<SONARQUBE_SERVER_URL>'
                     }
                 }
-            }
-        }
-        stage('Build and Unit Tests') {
-            steps {
-                echo 'Building and running unit tests...'
-                sh 'mvn clean install'
             }
         }
         stage('Deploy for Integration Tests') {
