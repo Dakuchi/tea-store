@@ -62,7 +62,7 @@ pipeline {
                 echo 'Deploying services using Docker Compose...'
                 sh '''
                     cd tools/
-                    ./build_docker.sh
+                    DEPLOY=1 ./docker_build.sh -p -r Dakuchi/
                     cd ..
                     sed -i 's/descartesresearch\\///g' examples/docker/docker-compose_default.yaml
                     docker-compose -f examples/docker/docker-compose_default.yaml up -d
