@@ -68,9 +68,6 @@ pipeline {
             }
         }
         stage('Deploy for Integration Tests') {
-            environment {
-                DEPLOY = '1'
-            }
             steps {
                 echo 'Deploying services using Docker Compose...'
                 sh '''
