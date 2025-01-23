@@ -46,8 +46,8 @@ pipeline {
                         services.each { service ->
                             sh """
                                 ${scannerHome}/bin/sonar-scanner \
-                                -Dsonar.projectKey=${service} \
-                                -Dsonar.projectName=${service} \
+                                -Dsonar.projectKey='teastore' \
+                                -Dsonar.projectName='teastore' \
                                 -Dsonar.projectVersion=1.0 \
                                 -Dsonar.sources=services/${service}/src \
                                 -Dsonar.java.binaries=services/${service}/target/classes
