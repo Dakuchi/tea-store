@@ -33,11 +33,11 @@ pipeline {
             }
         }
         stage('Code Analysis') {
-            when {
+            /*when {
                 expression {
                     return false // Skip this stage
                 }
-            }
+            }*/
             environment {
                 scannerHome = tool 'Sonar'
             }
@@ -68,6 +68,9 @@ pipeline {
             }
         }
         stage('Deploy for Integration Tests') {
+            /*environment {
+                DEPLOY = '1'
+            }*/
             steps {
                 echo 'Deploying services using Docker Compose...'
                 sh '''
@@ -75,7 +78,7 @@ pipeline {
                     ./build_docker.sh -p -r Dakuchi/
                     cd ..
                     sed -i 's/descartesresearch\\///g' examples/docker/docker-compose_default.yaml
-                    docker-compose -f examples/docker/docker-compose_default.yaml up -d
+                    docker compose -f examples/docker/docker-compose_default.yaml up -d
                 '''
             }
         }
@@ -92,7 +95,7 @@ pipeline {
         stage('Cleanup') {
             steps {
                 echo 'Cleaning up Docker containers...'
-                sh 'docker-compose -f examples/docker/docker-compose_default.yaml down --volumes --remove-orphans'
+                sh 'docker compose -f examples/docker/docker-compose_default.yaml down --volumes --remove-orphans'
             }
         }
         stage('Prepare Release') {
@@ -109,8 +112,8 @@ pipeline {
                 }
                 sh '''
                     sed -i "s/<teastoreversion>.*</<teastoreversion>${VERSION}<</" pom.xml
-                    git config user.email "action@github.com"
-                    git config user.name "GitHub Action"
+                    git config user.email "jenkins@github.com"
+                    git config user.name "Jenkins user"
                     git commit -m "Automated version bump to ${VERSION}" -a
                     git push origin development
                 '''
