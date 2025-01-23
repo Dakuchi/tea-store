@@ -33,11 +33,11 @@ pipeline {
             }
         }
         stage('Code Analysis') {
-            /*when {
+            when {
                 expression {
                     return false // Skip this stage
                 }
-            }*/
+            }
             environment {
                 scannerHome = tool 'Sonar'
             }
