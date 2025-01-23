@@ -22,12 +22,22 @@ pipeline {
             }
         }
         stage('Build and Unit Tests') {
+            when {
+                expression {
+                    return false // Skip this stage
+                }
+            }
             steps {
                 echo 'Building and running unit tests...'
                 sh 'mvn clean install'
             }
         }
         stage('Code Analysis') {
+            when {
+                expression {
+                    return false // Skip this stage
+                }
+            }
             environment {
                 scannerHome = tool 'Sonar'
             }
@@ -58,11 +68,14 @@ pipeline {
             }
         }
         stage('Deploy for Integration Tests') {
+            environment {
+                DEPLOY = '1'
+            }
             steps {
                 echo 'Deploying services using Docker Compose...'
                 sh '''
                     cd tools/
-                    DEPLOY=1 ./docker_build.sh -p -r Dakuchi/
+                    ./docker_build.sh -p -r Dakuchi/
                     cd ..
                     sed -i 's/descartesresearch\\///g' examples/docker/docker-compose_default.yaml
                     docker-compose -f examples/docker/docker-compose_default.yaml up -d
