@@ -49,7 +49,7 @@ pipeline {
                                 -Dsonar.projectKey=${service} \
                                 -Dsonar.projectName=${service} \
                                 -Dsonar.projectVersion=1.0 \
-                                -Dsonar.sources=services/${service}/src
+                                -Dsonar.sources=services/${service}/src \
                                 -Dsonar.java.binaries=services/${service}/target/classes
                             """
                         }
