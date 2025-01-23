@@ -22,11 +22,11 @@ pipeline {
             }
         }
         stage('Build and Unit Tests') {
-            when {
+            /*when {
                 expression {
                     return false // Skip this stage
                 }
-            }
+            }*/
             steps {
                 echo 'Building and running unit tests...'
                 sh 'mvn clean install'
