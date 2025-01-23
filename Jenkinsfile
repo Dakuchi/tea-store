@@ -40,7 +40,7 @@ pipeline {
                             'tools.descartes.teastore.persistence',
                             'tools.descartes.teastore.recommender',
                             'tools.descartes.teastore.registry',
-                            'tools.descartes.teastore.webuils'
+                            'tools.descartes.teastore.webui'
                         ]
                         // Loop through each service and run SonarQube analysis
                         services.each { service ->
