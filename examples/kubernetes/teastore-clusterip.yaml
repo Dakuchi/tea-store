@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: teastore-db
-          image: Dakuchi/teastore-db
+          image: dakuchi/teastore-db:1.0
           ports:
             - containerPort: 3306
           resources:
@@ -64,7 +64,7 @@ spec:
     spec:
       containers:
         - name: teastore-registry
-          image: Dakuchi/teastore-registry
+          image: dakuchi/teastore-registry:1.0
           ports:
             - containerPort: 8080
           resources:
@@ -109,7 +109,7 @@ spec:
     spec:
       containers:
         - name: teastore-persistence
-          image: Dakuchi/teastore-persistence
+          image: dakuchi/teastore-persistence:1.0
           ports:
             - containerPort: 8080
           env:
@@ -163,7 +163,7 @@ spec:
     spec:
       containers:
         - name: teastore-auth
-          image: Dakuchi/teastore-auth
+          image: dakuchi/teastore-auth:1.0
           ports:
             - containerPort: 8080
           env:
@@ -213,7 +213,7 @@ spec:
     spec:
       containers:
         - name: teastore-image
-          image: Dakuchi/teastore-image
+          image: dakuchi/teastore-image:1.0
           ports:
             - containerPort: 8080
           env:
@@ -263,7 +263,7 @@ spec:
     spec:
       containers:
         - name: teastore-recommender
-          image: Dakuchi/teastore-recommender
+          image: dakuchi/teastore-recommender:1.0
           ports:
             - containerPort: 8080
           env:
@@ -313,7 +313,7 @@ spec:
     spec:
       containers:
         - name: teastore-webui
-          image: Dakuchi/teastore-webui
+          image: dakuchi/teastore-webui:1.0
           ports:
             - containerPort: 8080
           env:
