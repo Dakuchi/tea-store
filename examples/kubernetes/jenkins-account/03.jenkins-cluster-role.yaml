@@ -4,5 +4,5 @@ metadata:
   name: jenkins-cluster-role
 rules:
   - apiGroups: [""]
-    resources: ["pods", "pods/exec", "services", "replicationcontrollers", "deployments", "configmaps", "secrets"]
+    resources: ["pods", "pods/exec", "services", "replicationcontrollers", "deployments", "configmaps", "secrets", "namespaces"]
     verbs: ["get", "list", "create", "update", "delete"]
