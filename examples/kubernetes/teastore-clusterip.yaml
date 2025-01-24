@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: teastore-db
-          image: descartesresearch/teastore-db
+          image: Dakuchi/teastore-db
           ports:
             - containerPort: 3306
 ---
@@ -57,7 +57,7 @@ spec:
     spec:
       containers:
         - name: teastore-registry
-          image: descartesresearch/teastore-registry
+          image: Dakuchi/teastore-registry
           ports:
             - containerPort: 8080
 ---
@@ -95,7 +95,7 @@ spec:
     spec:
       containers:
         - name: teastore-persistence
-          image: descartesresearch/teastore-persistence
+          image: Dakuchi/teastore-persistence
           ports:
             - containerPort: 8080
           env:
@@ -142,7 +142,7 @@ spec:
     spec:
       containers:
         - name: teastore-auth
-          image: descartesresearch/teastore-auth
+          image: Dakuchi/teastore-auth
           ports:
             - containerPort: 8080
           env:
@@ -185,7 +185,7 @@ spec:
     spec:
       containers:
         - name: teastore-image
-          image: descartesresearch/teastore-image
+          image: Dakuchi/teastore-image
           ports:
             - containerPort: 8080
           env:
@@ -228,7 +228,7 @@ spec:
     spec:
       containers:
         - name: teastore-recommender
-          image: descartesresearch/teastore-recommender
+          image: Dakuchi/teastore-recommender
           ports:
             - containerPort: 8080
           env:
@@ -271,7 +271,7 @@ spec:
     spec:
       containers:
         - name: teastore-webui
-          image: descartesresearch/teastore-webui
+          image: Dakuchi/teastore-webui
           ports:
             - containerPort: 8080
           env:
@@ -288,10 +288,10 @@ metadata:
     app: teastore
     run: teastore-webui
 spec:
-  type: NodePort
+  type: LoadBalancer
   ports:
-    - port: 8080
-      nodePort: 30080
-      protocol: TCP
+    - name: http
+      port: 80
+      targetPort: 8080
   selector:
     run: teastore-webui
