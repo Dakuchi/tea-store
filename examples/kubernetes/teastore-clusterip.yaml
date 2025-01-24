@@ -1,4 +1,15 @@
 ---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: teastore-db-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -17,18 +28,26 @@ spec:
         app: teastore
         run: teastore-db
     spec:
+      volumes:
+        - name: teastore-db-volume
+          persistentVolumeClaim:
+            claimName: teastore-db-pvc
       containers:
         - name: teastore-db
           image: dakuchi/teastore-db:1.0
           ports:
             - containerPort: 3306
+          volumeMounts:
+            - mountPath: /var/lib/mysql
+              name: teastore-db-volume
           resources:
             requests:
               cpu: 100m
-              memory: 64Mi
+              memory: 512Mi
             limits:
               cpu: 200m
-              memory: 128Mi
+              memory: 1Gi
+
 ---
 apiVersion: v1
 kind: Service
@@ -70,10 +89,10 @@ spec:
           resources:
             requests:
               cpu: 100m
-              memory: 64Mi
+              memory: 512Mi
             limits:
               cpu: 200m
-              memory: 128Mi
+              memory: 1Gi
 ---
 apiVersion: v1
 kind: Service
@@ -124,10 +143,10 @@ spec:
           resources:
             requests:
               cpu: 100m
-              memory: 64Mi
+              memory: 512Mi
             limits:
               cpu: 200m
-              memory: 128Mi
+              memory: 1Gi
 ---
 apiVersion: v1
 kind: Service
@@ -174,10 +193,10 @@ spec:
           resources:
             requests:
               cpu: 100m
-              memory: 64Mi
+              memory: 512Mi
             limits:
               cpu: 200m
-              memory: 128Mi
+              memory: 1Gi
 ---
 apiVersion: v1
 kind: Service
@@ -224,10 +243,10 @@ spec:
           resources:
             requests:
               cpu: 100m
-              memory: 64Mi
+              memory: 512Mi
             limits:
               cpu: 200m
-              memory: 128Mi
+              memory: 10Gi
 ---
 apiVersion: v1
 kind: Service
@@ -274,10 +293,10 @@ spec:
           resources:
             requests:
               cpu: 100m
-              memory: 64Mi
+              memory: 512Mi
             limits:
               cpu: 200m
-              memory: 128Mi
+              memory: 1Gi
 ---
 apiVersion: v1
 kind: Service
@@ -324,10 +343,10 @@ spec:
           resources:
             requests:
               cpu: 100m
-              memory: 64Mi
+              memory: 512Mi
             limits:
               cpu: 200m
-              memory: 128Mi
+              memory: 1Gi
 ---
 apiVersion: v1
 kind: Service
